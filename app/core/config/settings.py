@@ -32,9 +32,7 @@ class GlobalSettings(BaseSettings):
     )
 
 
-global_settings = GlobalSettings()
-
 __all__ = [
-    "global_settings",
+    "GlobalSettings",
     "ServerEnvironment"
 ]

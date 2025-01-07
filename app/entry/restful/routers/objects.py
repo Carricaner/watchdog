@@ -1,23 +1,19 @@
 from typing import Annotated, Optional
 
 from bson import ObjectId
-from fastapi import APIRouter
+from dependency_injector.wiring import inject, Provide
+from fastapi import APIRouter, Depends
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BeforeValidator, BaseModel, Field, HttpUrl, ConfigDict
 from starlette.responses import RedirectResponse
 
-from app.core.config.settings import global_settings
+from app.core.config.settings import GlobalSettings
+from app.core.di.containers import CoreContainer
 
 router = APIRouter(
     prefix="/object",
     tags=["object"]
 )
-
-connection_url = "mongodb+srv://macbookm2pro:kA6g2fCtmlB3AH4e@cluster0.aoizo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-
-client = AsyncIOMotorClient(connection_url)
-db = client["dev"]
-collection = db["objects"]
 
 MongodbObjectId = Annotated[str, BeforeValidator(str)]
 
@@ -36,7 +32,15 @@ class ObjectModel(BaseModel):
     "",
     response_model=ObjectModel
 )
-async def create_an_object():
+@inject
+async def create_an_object_only_for_testing(
+    global_settings: GlobalSettings = Depends(Provide[CoreContainer.global_settings])
+):
+    connection_url = global_settings.mongodb.connection_url
+    client = AsyncIOMotorClient(connection_url)
+    db = client["dev"]
+    collection = db["objects"]
+
     document_id = "677c4512428acdc6e7dbd299"
     query = {"_id": ObjectId(document_id)}
     document = await collection.find_one(query)
@@ -44,10 +48,6 @@ async def create_an_object():
         return document
     return "NOT..OK.."
 
-
-@router.get("/settings")
-def get_settings():
-    return global_settings
 
 
 @router.get("/redirect")

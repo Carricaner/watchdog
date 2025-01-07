@@ -1,3 +1,5 @@
+from app.core.config.server.lifespans import default_lifespan
+
 api_doc_version = "v1"
 
 tags_metadata = [
@@ -30,7 +32,8 @@ fastapi_api_document_parameters = {
 }
 
 fastapi_parameters = {
-    **fastapi_api_document_parameters
+    **fastapi_api_document_parameters,
+    "lifespan": default_lifespan
 }
 
 __all__ = [
