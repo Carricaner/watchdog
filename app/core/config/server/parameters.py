@@ -2,16 +2,8 @@ api_doc_version = "v1"
 
 tags_metadata = [
     {
-        "name": "account",
-        "description": "Dealing with users' Shioaji accounts.",
-    },
-    {
-        "name": "option",
-        "description": "Related to the financial product: option",
-        "externalDocs": {
-            "description": "the external docs(fake)",
-            "url": "https://fastapi.tiangolo.com/",
-        },
+        "name": "object",
+        "description": "The object that a user wanna to secure",
     }
 ]
 
