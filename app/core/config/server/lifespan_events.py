@@ -1,4 +1,5 @@
-from app.core.di.containers import CoreContainer
+from app.core.config.di.containers import CoreContainer
+from app.external.di.containers import ExternalContainer
 
 
 def application_start() -> None:
@@ -15,6 +16,16 @@ def dependency_injection_init() -> None:
         modules=[__name__],
         packages=[
             "app.entry",
-            "app.core"
+            "app.core",
+            "app.external"
+        ]
+    )
+
+    external_container = ExternalContainer()
+    external_container.wire(
+        modules=[__name__],
+        packages=[
+            "app.entry",
+            "app.external"
         ]
     )
