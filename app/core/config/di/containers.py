@@ -5,5 +5,5 @@ from app.core.config.settings import GlobalSettings
 
 
 class CoreContainer(DeclarativeContainer):
-    # Global Settings
-    global_settings = providers.Singleton(GlobalSettings)
+    # Config
+    config = providers.Configuration(pydantic_settings=[GlobalSettings()])
