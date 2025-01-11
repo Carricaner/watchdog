@@ -7,8 +7,6 @@ from jwt import InvalidTokenError
 from passlib.context import CryptContext
 from pydantic import BaseModel
 
-from app.core.domain.user.entities import User
-
 
 class JWTAlgorithm(Enum):
     HS256 = "HS256"
@@ -73,7 +71,7 @@ class JWTService:
 
 class AuthServiceAdapter(ABC):
     @abstractmethod
-    async def get_user(self, username: str) -> User:
+    async def get_user(self, username: str):
         pass
 
 
