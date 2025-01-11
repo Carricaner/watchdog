@@ -13,8 +13,8 @@ class AuthUseCase:
         self._auth_service = auth_service
         self._jwt_service = jwt_service
 
-    def login(self, username: str, password: str):
-        authenticated = self._auth_service.authenticate_user(username, password)
+    async def login(self, username: str, password: str):
+        authenticated = await self._auth_service.authenticate_user(username, password)
         if not authenticated:
             return LoginUseCaseOutput()
         payload = {

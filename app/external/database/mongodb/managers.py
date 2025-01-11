@@ -8,6 +8,9 @@ class MongodbManager:
     def __get_collection(self, collection_name: str):
         return self._db[collection_name]
 
+    def get_users_collection(self):
+        return self.__get_collection("users")
+
     def get_objects_collection(self):
         return self.__get_collection("objects")
 

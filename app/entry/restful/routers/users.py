@@ -102,7 +102,7 @@ async def login_in_for_token(
     #     data={"sub": user.username}, expires_delta=access_token_expires
     # )
     # return TokenResponse(access_token=access_token, token_type="bearer")
-    return auth_use_case.login(form_data.username, form_data.password)
+    return await auth_use_case.login(form_data.username, form_data.password)
 
 
 @router.get("/users/me", response_model=User)
