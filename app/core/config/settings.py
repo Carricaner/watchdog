@@ -1,7 +1,7 @@
 import os
 from enum import Enum
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -15,6 +15,12 @@ class ServerEnvironment(Enum):
         return ServerEnvironment(env_string.lower())
 
 
+class AuthenticationSettings(BaseModel):
+    secret_key: str
+    algorithm: str = Field(default="HS256")
+    expiration_period: int = Field(default=3600)
+
+
 class MongodbSettings(BaseModel):
     connection_url: str
     database: str
@@ -22,6 +28,7 @@ class MongodbSettings(BaseModel):
 
 class GlobalSettings(BaseSettings):
     server_mode: str
+    authentication: AuthenticationSettings
     mongodb: MongodbSettings
 
     model_config = SettingsConfigDict(

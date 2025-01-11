@@ -12,20 +12,22 @@ def gracefully_shutdown() -> None:
 
 def dependency_injection_init() -> None:
     core_container = CoreContainer()
+    external_container = ExternalContainer()
+    core_container.auth_service_adapter.override(
+        external_container.auth_service_adapter
+    )
+    external_container.wire(
+        modules=[__name__],
+        packages=[
+            "app.entry",
+            "app.external"
+        ]
+    )
     core_container.wire(
         modules=[__name__],
         packages=[
             "app.entry",
             "app.core",
-            "app.external"
-        ]
-    )
-
-    external_container = ExternalContainer()
-    external_container.wire(
-        modules=[__name__],
-        packages=[
-            "app.entry",
             "app.external"
         ]
     )

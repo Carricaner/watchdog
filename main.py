@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI, APIRouter
 
 from app.core.config.server.parameters import fastapi_parameters, main_router_parameters
-from app.entry.restful.routers import objects
+from app.entry.restful.routers import objects, users
 
 app = FastAPI(**fastapi_parameters)
 
@@ -11,6 +11,7 @@ main_router = APIRouter(
 )
 
 main_router.include_router(objects.router)
+main_router.include_router(users.router)
 
 app.include_router(main_router)
 
