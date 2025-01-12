@@ -4,6 +4,7 @@ from dependency_injector.containers import DeclarativeContainer
 from app.core.config.settings import GlobalSettings
 from app.external.auth.adapters import AuthServiceAdapterImpl
 from app.external.database.mongodb.managers import MongodbManager
+from app.external.user.adapters import UserUseCaseAdapterImpl
 
 
 class ExternalContainer(DeclarativeContainer):
@@ -19,3 +20,4 @@ class ExternalContainer(DeclarativeContainer):
 
     # Auth
     auth_service_adapter = providers.Singleton(AuthServiceAdapterImpl, mongodb_manager=mongodb_manager)
+    user_use_case_adapter = providers.Singleton(UserUseCaseAdapterImpl, mongodb_manager=mongodb_manager)

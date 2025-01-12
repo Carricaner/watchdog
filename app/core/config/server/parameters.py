@@ -4,6 +4,9 @@ api_doc_version = "v1"
 
 tags_metadata = [
     {
+        "name": "user"
+    },
+    {
         "name": "object",
         "description": "The object that a user wanna to secure",
     }

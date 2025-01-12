@@ -5,7 +5,8 @@ from dependency_injector.containers import DeclarativeContainer
 
 from app.core.config.security.services import BcryptService, JWTService, JWTAlgorithm, AuthService, AuthServiceAdapter
 from app.core.config.settings import GlobalSettings
-from app.core.usecase.auth import AuthUseCase
+from app.core.usecase.user.adapters import UserUseCaseAdapter
+from app.core.usecase.user.usecases import AuthUseCase
 
 
 class CoreContainer(DeclarativeContainer):
@@ -23,4 +24,6 @@ class CoreContainer(DeclarativeContainer):
                                        hash_service=hash_service)
 
     # Use cases
-    auth_use_case = providers.Singleton(AuthUseCase, auth_service=auth_service, jwt_service=jwt_service)
+    user_use_case_adapter = providers.AbstractSingleton(UserUseCaseAdapter)
+    auth_use_case = providers.Singleton(AuthUseCase, auth_service=auth_service, jwt_service=jwt_service,
+                                        user_use_case_adapter=user_use_case_adapter)
