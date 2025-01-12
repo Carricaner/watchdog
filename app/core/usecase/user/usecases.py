@@ -1,6 +1,3 @@
-from fastapi import HTTPException
-from starlette import status
-
 from app.core.config.security.services import JWTService, BcryptService
 from app.core.usecase.user.adapters import UserUseCaseAdapter
 from app.core.usecase.user.inputs import SigninUseCaseInput
@@ -27,14 +24,3 @@ class AuthUseCase:
             "email": email
         }
         return LoginUseCaseOutput(success=True, token=self._jwt_service.encode(payload))
-
-    def get_current_user(self, token: str):
-        credentials_exception = HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Could not validate credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-        response = self._jwt_service.decode(token)
-        if not response.success:
-            raise credentials_exception
-        return response.payload
