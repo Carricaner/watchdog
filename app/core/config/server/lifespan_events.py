@@ -13,9 +13,6 @@ def gracefully_shutdown() -> None:
 def dependency_injection_init() -> None:
     core_container = CoreContainer()
     external_container = ExternalContainer()
-    core_container.auth_service_adapter.override(
-        external_container.auth_service_adapter
-    )
     core_container.user_use_case_adapter.override(
         external_container.user_use_case_adapter
     )

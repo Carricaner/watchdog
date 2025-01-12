@@ -1,4 +1,3 @@
-from abc import ABC, abstractmethod
 from datetime import timedelta, datetime, timezone
 from enum import Enum
 
@@ -67,20 +66,3 @@ class JWTService:
             )
         except InvalidTokenError:
             return JWTDecodeResponse()
-
-
-class AuthServiceAdapter(ABC):
-    @abstractmethod
-    async def get_user(self, username: str):
-        pass
-
-
-class AuthService:
-    def __init__(self, auth_service_adapter: AuthServiceAdapter,
-                 hash_service: BcryptService) -> None:
-        self._auth_service_adapter = auth_service_adapter
-        self._hash_service = hash_service
-
-    async def authenticate_user(self, username: str, password: str) -> bool:
-        user = await self._auth_service_adapter.get_user(username)
-        return user is not None and self._hash_service.verify(password, user.hashed_password)
