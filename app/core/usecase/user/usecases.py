@@ -1,7 +1,6 @@
 from app.core.config.security.services import JWTService, BcryptService
 from app.core.usecase.user.adapters import UserUseCaseAdapter
-from app.core.usecase.user.inputs import SigninUseCaseInput
-from app.core.usecase.user.outputs import LoginUseCaseOutput
+from app.core.usecase.user.entities import SigninUseCaseInput, LoginUseCaseOutput
 
 
 class AuthUseCase:
@@ -17,10 +16,12 @@ class AuthUseCase:
 
     async def log_in(self, email: str, password: str):
         user = await self._user_use_case_adapter.get_user_by_email(email)
-        if not user or not self._hash_service.verify(password, user.password):
+        if not user or user.disabled or not self._hash_service.verify(password, user.password):
             return LoginUseCaseOutput()
         payload = {
-            "sub": user.username,
-            "email": email
+            "user_id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "disabled": user.disabled
         }
         return LoginUseCaseOutput(success=True, token=self._jwt_service.encode(payload))

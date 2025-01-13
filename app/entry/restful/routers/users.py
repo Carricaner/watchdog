@@ -7,7 +7,8 @@ from fastapi.security import OAuth2PasswordRequestForm
 from app.core.config.di.containers import CoreContainer
 from app.core.config.security.middlewares import get_current_user
 from app.core.config.security.services import BcryptService
-from app.core.usecase.user.inputs import SigninUseCaseInput
+from app.core.domain.user.entities import User
+from app.core.usecase.user.entities import SigninUseCaseInput
 from app.core.usecase.user.usecases import AuthUseCase
 
 router = APIRouter(
@@ -40,6 +41,6 @@ async def login_in_for_token(
 
 @router.get("/me")
 async def me_user(
-        current_user: dict = Depends(get_current_user)
+        current_user: User = Depends(get_current_user)
 ):
     return current_user

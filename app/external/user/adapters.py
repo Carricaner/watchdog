@@ -1,6 +1,6 @@
 from app.core.domain.user.entities import User
 from app.core.usecase.user.adapters import UserUseCaseAdapter
-from app.core.usecase.user.inputs import SigninUseCaseInput
+from app.core.usecase.user.entities import SigninUseCaseInput
 from app.external.database.mongodb.managers import MongodbManager
 
 
@@ -12,7 +12,7 @@ class UserUseCaseAdapterImpl(UserUseCaseAdapter):
     async def get_user_by_email(self, email: str) -> User:
         query = {"email": email}
         document = await self._mongodb_manager.get_users_collection().find_one(query)
-        return User(**document)
+        return User(**{"user_id": str(document["_id"]), **document})
 
     async def create_user(self, sign_in_input: SigninUseCaseInput):
         dump = sign_in_input.model_dump()

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 from app.core.domain.user.entities import User
-from app.core.usecase.user.inputs import SigninUseCaseInput
+from app.core.usecase.user.entities import SigninUseCaseInput
 
 
 class UserUseCaseAdapter(ABC):

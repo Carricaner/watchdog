@@ -16,6 +16,9 @@ def dependency_injection_init() -> None:
     core_container.user_use_case_adapter.override(
         external_container.user_use_case_adapter
     )
+    core_container.object_use_case_adapter.override(
+        external_container.object_use_case_adapter
+    )
     external_container.wire(
         modules=[__name__],
         packages=[

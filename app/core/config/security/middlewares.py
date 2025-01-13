@@ -7,6 +7,7 @@ from starlette import status
 
 from app.core.config.di.containers import CoreContainer
 from app.core.config.security.services import JWTService
+from app.core.domain.user.entities import User
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/user/auth")
 
@@ -21,8 +22,8 @@ credentials_exception = HTTPException(
 def get_current_user(
         token: Annotated[str, Depends(oauth2_scheme)],
         jwt_service: JWTService = Depends(Provide[CoreContainer.jwt_service])
-):
+) -> User:
     response = jwt_service.decode(token)
     if not response.success:
         raise credentials_exception
-    return response.payload
+    return User(**response.payload)
