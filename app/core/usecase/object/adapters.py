@@ -1,10 +1,11 @@
 from abc import ABC, abstractmethod
 
+from fastapi import UploadFile
+
 from app.core.domain.user.entities import User
-from app.core.usecase.object.entities import CreateAnObjectUseCaseInput
 
 
 class ObjectUseCaseAdapter(ABC):
     @abstractmethod
-    async def create_an_object(self, user: User, body: CreateAnObjectUseCaseInput):
+    async def create_a_file(self, user: User, file: UploadFile):
         pass

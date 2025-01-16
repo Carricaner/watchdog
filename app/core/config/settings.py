@@ -26,10 +26,17 @@ class MongodbSettings(BaseModel):
     database: str
 
 
+class AWSSettings(BaseModel):
+    access_key: str
+    secret_key: str
+    region: str
+
+
 class GlobalSettings(BaseSettings):
     server_mode: str
     authentication: AuthenticationSettings
     mongodb: MongodbSettings
+    aws: AWSSettings
 
     model_config = SettingsConfigDict(
         env_file=f'env/{ServerEnvironment.from_str(os.environ.get("WATCHDOG_ENV")).value}/.env',
