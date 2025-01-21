@@ -11,7 +11,9 @@ class AuthUseCase:
         self._hash_service = hash_service
 
     async def sing_in(self, sign_in_input: SigninUseCaseInput):
-        # TODO need to check if the email exists or not
+        user = await self._user_use_case_adapter.get_user_by_email(sign_in_input.email)
+        if user:
+            raise Exception("Email already existed.")
         return await self._user_use_case_adapter.create_user(sign_in_input)
 
     async def log_in(self, email: str, password: str):
