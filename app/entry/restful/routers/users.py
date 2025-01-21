@@ -8,7 +8,7 @@ from app.core.config.di.containers import CoreContainer
 from app.core.config.security.middlewares import get_current_user
 from app.core.config.security.services import BcryptService
 from app.core.domain.user.entities import User
-from app.core.usecase.user.entities import SigninUseCaseInput
+from app.core.usecase.user.entities import SigninUseCaseInput, LoginUseCaseOutput
 from app.core.usecase.user.usecases import AuthUseCase
 
 router = APIRouter(
@@ -30,7 +30,7 @@ async def sign_in(
     return "OK"
 
 
-@router.post("/login")
+@router.post("/login", response_model=LoginUseCaseOutput)
 @inject
 async def login_in_for_token(
         form_data: Annotated[OAuth2PasswordRequestForm, Depends()],

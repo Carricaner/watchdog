@@ -13,7 +13,4 @@ class ObjectUseCaseAdapterImpl(ObjectUseCaseAdapter):
         self._s3_client = s3_client
 
     async def create_a_file(self, user: User, file: UploadFile):
-        # model_dump = body.model_dump(mode="json")
-        # model_dump["user_id"] = user.id
-        # result = await self._mongodb_manager.get_objects_collection().insert_one(model_dump)
         await self._s3_client.upload_file(user, file)

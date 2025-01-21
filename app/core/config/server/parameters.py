@@ -1,3 +1,5 @@
+from starlette.responses import JSONResponse
+
 from app.core.config.server.lifespans import default_lifespan
 
 api_doc_version = "v1"
