@@ -10,8 +10,8 @@ class User(BaseModel):
 
 
 if __name__ == "__main__":
-    dict = {
+    data = {
         "user_id": "123",
         "username": "twen"
     }
-    print(User(**dict).model_dump(by_alias=True))
+    print(User(**data).model_dump(by_alias=True))

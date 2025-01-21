@@ -12,7 +12,7 @@ class S3Client:
             aws_secret_access_key=aws_secret_key,
             region_name=aws_region
         )
-        self._bucket_name = "watchdog"
+        self._bucket_name = "project-watchdog"
 
     async def upload_file(self, user: User, file: UploadFile):
         file_content = await file.read()
