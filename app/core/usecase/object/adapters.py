@@ -21,3 +21,11 @@ class ObjectUseCaseAdapter(ABC):
     @abstractmethod
     async def get_all_user_files(self, user: User):
         pass
+
+    @abstractmethod
+    async def file_exists(self, user: User, file_name: str):
+        pass
+
+    @abstractmethod
+    async def create_presigned_url(self, user: User, file_name: str, expiration: int) -> str:
+        pass

@@ -25,3 +25,9 @@ class ObjectUseCaseAdapterImpl(ObjectUseCaseAdapter):
 
     async def get_all_user_files(self, user: User) -> List[str]:
         return await self._s3_client.list_all_file_names(user)
+
+    async def file_exists(self, user: User, file_name: str):
+        return await self._s3_client.file_exist(user, file_name)
+
+    async def create_presigned_url(self, user: User, file_name: str, expiration_in_seconds: int = 3600) -> str:
+        return await self._s3_client.create_presigned_url(user, file_name, expiration_in_seconds)

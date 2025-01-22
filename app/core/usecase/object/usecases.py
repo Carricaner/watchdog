@@ -21,5 +21,12 @@ class ObjectUseCase:
     async def get_all_user_files(self, user: User) -> List[str]:
         return await self._object_use_case_adapter.get_all_user_files(user)
 
-    async def create_presigned_url(self, user: User, file_name: str):
-        pass
+    async def create_presigned_url(self, user: User, file_name: str, expiration_in_seconds: int = 3600):
+        # Check if file_name is None or empty
+        if file_name is None or not file_name.strip():
+            raise ValueError("The file name must not be None or empty.")
+        file_name = file_name.strip()
+        file_exists = await self._object_use_case_adapter.file_exists(user, file_name)
+        if not file_exists:
+            raise Exception(f'The file with name of {file_name} does not exist.')
+        return await self._object_use_case_adapter.create_presigned_url(user, file_name, expiration_in_seconds)
