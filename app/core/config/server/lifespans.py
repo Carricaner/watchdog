@@ -7,6 +7,6 @@ from app.core.config.server.lifespan_events import application_start, gracefully
 
 @asynccontextmanager
 async def default_lifespan(app: FastAPI):
-    application_start()
+    await application_start()
     yield
     gracefully_shutdown()

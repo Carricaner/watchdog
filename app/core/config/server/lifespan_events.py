@@ -1,9 +1,14 @@
+from dependency_injector.wiring import inject, Provide
+from fastapi import Depends
+
 from app.core.config.di.containers import CoreContainer
+from app.core.usecase.object.usecases import ObjectUseCase
 from app.external.di.containers import ExternalContainer
 
 
-def application_start() -> None:
+async def application_start() -> None:
     dependency_injection_init()
+    await initialize_watchdog_storage()
 
 
 def gracefully_shutdown() -> None:
@@ -34,3 +39,8 @@ def dependency_injection_init() -> None:
             "app.external"
         ]
     )
+
+
+@inject
+async def initialize_watchdog_storage(object_use_case: ObjectUseCase = Depends(Provide[CoreContainer.object_use_case])):
+    await object_use_case.initialize_watchdog_storage()

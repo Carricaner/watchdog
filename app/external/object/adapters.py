@@ -12,5 +12,11 @@ class ObjectUseCaseAdapterImpl(ObjectUseCaseAdapter):
         self._mongodb_manager = mongodb_manager
         self._s3_client = s3_client
 
+    async def lifecycle_policy_exits(self) -> bool:
+        return await self._s3_client.lifecycle_policy_exists()
+
+    async def update_lifecycle_policy(self) -> None:
+        await self._s3_client.overwrite_lifecycle_policy()
+
     async def create_a_file(self, user: User, file: UploadFile):
         await self._s3_client.upload_file(user, file)
