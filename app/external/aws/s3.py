@@ -1,3 +1,5 @@
+from typing import List
+
 import boto3
 from botocore.exceptions import ClientError
 from fastapi import UploadFile
@@ -67,3 +69,8 @@ class S3Client:
             Bucket=self._bucket_name,
             LifecycleConfiguration=self._lifecycle_policy_config
         )
+
+    async def list_all_file_names(self, user: User) -> List[str]:
+        prefix = f'user/{user.id}/'
+        response = self._s3_client.list_objects_v2(Bucket=self._bucket_name, Prefix=prefix)
+        return [obj['Key'].split('/')[-1] for obj in response['Contents']] if 'Contents' in response else []

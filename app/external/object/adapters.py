@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import UploadFile
 
 from app.core.domain.user.entities import User
@@ -20,3 +22,6 @@ class ObjectUseCaseAdapterImpl(ObjectUseCaseAdapter):
 
     async def create_a_file(self, user: User, file: UploadFile):
         await self._s3_client.upload_file(user, file)
+
+    async def get_all_user_files(self, user: User) -> List[str]:
+        return await self._s3_client.list_all_file_names(user)

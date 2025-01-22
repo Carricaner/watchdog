@@ -17,3 +17,7 @@ class ObjectUseCaseAdapter(ABC):
     @abstractmethod
     async def create_a_file(self, user: User, file: UploadFile):
         pass
+
+    @abstractmethod
+    async def get_all_user_files(self, user: User):
+        pass

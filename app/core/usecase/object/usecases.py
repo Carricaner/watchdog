@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import UploadFile
 
 from app.core.domain.user.entities import User
@@ -15,3 +17,9 @@ class ObjectUseCase:
 
     async def create_a_file(self, user: User, file: UploadFile):
         await self._object_use_case_adapter.create_a_file(user, file)
+
+    async def get_all_user_files(self, user: User) -> List[str]:
+        return await self._object_use_case_adapter.get_all_user_files(user)
+
+    async def create_presigned_url(self, user: User, file_name: str):
+        pass

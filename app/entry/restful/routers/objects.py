@@ -1,6 +1,5 @@
 from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends, File, UploadFile
-from starlette.responses import RedirectResponse
 
 from app.core.config.di.containers import CoreContainer
 from app.core.config.security.middlewares import get_current_user
@@ -24,8 +23,10 @@ async def create_an_file(
     return "OK"
 
 
-@router.get("/redirect")
-def root():
-    return RedirectResponse(
-        "https://aws.amazon.com/blogs/architecture/text-analytics-on-aws-implementing-a-data-lake-architecture-with"
-        "-opensearch/")
+@router.get("/file/all")
+@inject
+async def get_all_file_names(
+        current_user: User = Depends(get_current_user),
+        object_use_case: ObjectUseCase = Depends(Provide[CoreContainer.object_use_case])
+):
+    return await object_use_case.get_all_user_files(current_user)
