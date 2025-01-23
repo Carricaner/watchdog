@@ -10,7 +10,7 @@ class AuthUseCase:
         self._user_use_case_adapter = user_use_case_adapter
         self._hash_service = hash_service
 
-    async def sing_in(self, sign_in_input: SigninUseCaseInput):
+    async def sing_in(self, sign_in_input: SigninUseCaseInput) -> True:
         user = await self._user_use_case_adapter.get_user_by_email(sign_in_input.email)
         if user:
             raise Exception("Email already existed.")
