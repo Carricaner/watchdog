@@ -49,7 +49,7 @@ class S3Client:
     def get_object_prefix(user):
         return f'user/{user.id}/'
 
-    async def upload_file(self, user: User, file: UploadFile):
+    async def upload_file(self, user: User, file: UploadFile) -> None:
         file_content = await file.read()
         self._s3_client.put_object(
             Bucket=self._bucket_name,

@@ -15,14 +15,13 @@ class ObjectUseCase:
         if not lifecycle_policy_exists:
             await self._object_use_case_adapter.update_lifecycle_policy()
 
-    async def create_a_file(self, user: User, file: UploadFile):
+    async def create_a_file(self, user: User, file: UploadFile) -> None:
         await self._object_use_case_adapter.create_a_file(user, file)
 
     async def get_all_user_files(self, user: User) -> List[str]:
         return await self._object_use_case_adapter.get_all_user_files(user)
 
     async def create_presigned_url(self, user: User, file_name: str, expiration_in_seconds: int = 3600):
-        # Check if file_name is None or empty
         if file_name is None or not file_name.strip():
             raise ValueError("The file name must not be None or empty.")
         file_name = file_name.strip()
