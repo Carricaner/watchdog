@@ -31,5 +31,5 @@ workflows:
   demo:
     jobs:
       - python/test:
-          pkg-manager: pipenv
+          pkg-manager: pip
           test-tool: pytest
