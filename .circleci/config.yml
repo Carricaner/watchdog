@@ -20,7 +20,7 @@ jobs:
   test:
     executor:
       name: python/default
-      tag: "3.12"
+      tag: "3.12.2"
     steps:
       - checkout
       - python/install-packages:
