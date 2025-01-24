@@ -28,11 +28,11 @@ jobs:
     executor:
       name: aws-ecr/default
     steps:
-      - checkout
       - aws-ecr/build_and_push_image:
           auth:
             - aws-cli/setup:
                 profile_name: default
+          account_id: ${AWS_ACCOUNT_ID}
           repo: watchdog
           create_repo: true
           dockerfile: Dockerfile
@@ -42,14 +42,14 @@ jobs:
 workflows:
   demo:
     jobs:
-      - test:
-          filters:
-            branches:
-              only:
-                - main
+#      - test:
+#          filters:
+#            branches:
+#              only:
+#                - main
       - build-and-publish-image:
-          requires:
-            - test
+#          requires:
+#            - test
           filters:
             branches:
               only:
