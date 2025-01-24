@@ -34,7 +34,6 @@ jobs:
           account_id: ${AWS_ACCOUNT_ID}
           push_image: false
           repo: watchdog
-          skip_when_tags_exist: true
           tag: "1.0"
       - run: docker images
       - aws-ecr/push_image:
