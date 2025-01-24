@@ -20,13 +20,13 @@ jobs:
   test:
     executor:
       name: python/default
-      tag: '3.12'
+      tag: "3.12"
     steps:
       - checkout
       - python/install-packages:
           pkg-manager: pip
           pip-dependency-file: requirements.txt
-      - python/test
+      - python/test:
 
 
 workflows:
