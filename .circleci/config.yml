@@ -2,14 +2,8 @@ version: 2.1
 
 orbs:
   python: circleci/python@3.0.0
-
-parameters:
-  DEFAULT_WORKSPACE_DIRECTORY:
-    type: string
-    default: "/tmp/workspace"
-  GIT_LATEST_COMMIT_SHA_KEY:
-    type: string
-    default: "last_commit_sha"
+  aws-cli: circleci/aws-cli@5.1.2
+  aws-ecr: circleci/aws-ecr@9.3.7
 
 executors:
   test-executor:
@@ -30,10 +24,32 @@ jobs:
           name: test
           command: pytest
 
+  build-and-publish-image:
+    executor:
+      name: aws-ecr/default
+    steps:
+      - checkout
+      - aws-ecr/build_and_push_image:
+          auth:
+            - aws-cli/setup:
+                profile_name: default
+          repo: watchdog
+          create_repo: true
+          dockerfile: Dockerfile
+          platform: linux/amd64
+          region: ap-northeast-1
+
 workflows:
   demo:
     jobs:
       - test:
+          filters:
+            branches:
+              only:
+                - main
+      - build-and-publish-image:
+          requires:
+            - test
           filters:
             branches:
               only:
