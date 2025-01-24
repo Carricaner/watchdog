@@ -17,7 +17,7 @@ executors:
       - image: cimg/openjdk:17.0.13-node
 
 jobs:
-  test:
+  build:
     executor:
       name: python/default
       tag: "3.12"
@@ -26,15 +26,10 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
           pip-dependency-file: requirements.txt
-      - python/test:
-          pkg-manager: pipenv
-          test-tool: pytest
 
 workflows:
   demo:
     jobs:
-      - test:
-          filters:
-            branches:
-              only:
-                - main
+      - python/test:
+          pkg-manager: pipenv
+          test-tool: pytest
