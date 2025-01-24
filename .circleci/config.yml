@@ -1,0 +1,39 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@3.0.0
+
+parameters:
+  DEFAULT_WORKSPACE_DIRECTORY:
+    type: string
+    default: "/tmp/workspace"
+  GIT_LATEST_COMMIT_SHA_KEY:
+    type: string
+    default: "last_commit_sha"
+
+executors:
+  test-executor:
+    docker:
+      - image: cimg/openjdk:17.0.13-node
+
+jobs:
+  test:
+    executor:
+      name: python/default
+      tag: '3.12'
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
+          pip-dependency-file: requirements.txt
+      - python/test
+
+
+workflows:
+  demo:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only:
+                - main
