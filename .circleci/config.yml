@@ -49,15 +49,23 @@ jobs:
 workflows:
   demo:
     jobs:
-      - test:
-          filters:
-            branches:
-              only:
-                - main
-      - build-and-publish-image:
-          requires:
-            - test
-          filters:
-            branches:
-              only:
-                - main
+#      - test:
+#          filters:
+#            branches:
+#              only:
+#                - main
+#      - build-and-publish-image:
+#          requires:
+#            - test
+#          filters:
+#            branches:
+#              only:
+#                - main
+      - aws-ecs/deploy_service_update:
+#          requires:
+#            - build-and-publish-image
+          auth:
+            - aws-cli/setup:
+                profile_name: default
+          cluster: watchdog-cluster
+          family: watchdog
