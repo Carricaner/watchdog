@@ -4,11 +4,12 @@ orbs:
   python: circleci/python@3.0.0
   aws-cli: circleci/aws-cli@5.1.2
   aws-ecr: circleci/aws-ecr@9.3.7
+  aws-ecs: circleci/aws-ecs@6.0.2
 
 executors:
-  test-executor:
+  default-executor:
     docker:
-      - image: cimg/openjdk:17.0.13-node
+      - image: cimg/base:stable
 
 jobs:
   test:
@@ -48,14 +49,14 @@ jobs:
 workflows:
   demo:
     jobs:
-#      - test:
-#          filters:
-#            branches:
-#              only:
-#                - main
+      - test:
+          filters:
+            branches:
+              only:
+                - main
       - build-and-publish-image:
-#          requires:
-#            - test
+          requires:
+            - test
           filters:
             branches:
               only:
