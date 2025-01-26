@@ -68,4 +68,5 @@ workflows:
             - aws-cli/setup:
                 profile_name: default
           cluster: watchdog-cluster
+          service_name: watchdog-service
           family: watchdog
