@@ -115,7 +115,7 @@ including: `Core` & `External`, as below.
    ```shell
    docker run -d -p 8000:80 --name watchdog-container watchdog
    ```
-   
+
 4. Now, we can use the app through `http://localhost:8000`.
 
 5. We can see the API Doc through `http://localhost:8000/v1/doc/redoc`
