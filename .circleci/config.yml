@@ -60,10 +60,14 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - dev
       - aws-ecs/deploy_service_update:
           requires:
             - build-and-publish-image
+          filters:
+            branches:
+              only:
+                - dev
           auth:
             - aws-cli/setup:
                 profile_name: default
