@@ -118,11 +118,16 @@ including: `Core` & `External`, as below.
    
 4. Now, we can use the app through `http://localhost:8000`.
 
+5. We can see the API Doc through `http://localhost:8000/v1/doc/redoc`
+
 ## Other Notes
 
 - Remember to install `setuptools` so that IDE can resolve the packages.
 
 ## Future Work
+
+- Write a start script
+- Normalize the response format
 
 ## References
 
