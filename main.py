@@ -13,8 +13,6 @@ def register_middlewares(app: FastAPI):
     app.add_middleware(UnifiedResponseMiddleware)
 
 
-register_middlewares(app)
-
 for exception, exception_handler in exception_handler_mapping_dict.items():
     app.add_exception_handler(exception, exception_handler)
 

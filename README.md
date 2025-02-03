@@ -120,6 +120,12 @@ including: `Core` & `External`, as below.
 
 5. We can see the API Doc through `http://localhost:8000/v1/doc/redoc`
 
+## API Document
+
+- Visit the endpoint `/v1/doc/redoc` or `/v1/doc/swagger` for API Doc
+
+<img src="https://the-general.s3.ap-northeast-1.amazonaws.com/project/watchdof-api-doc.png" width="700" alt="my clean architecture design"/>
+
 ## Other Notes
 
 - Remember to install `setuptools` so that IDE can resolve the packages.
