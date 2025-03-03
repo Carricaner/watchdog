@@ -33,7 +33,7 @@ including: `Core` & `External`, as below.
 
 <img src="https://the-general.s3.ap-northeast-1.amazonaws.com/project/redis-impl.svg" width="500" alt="my clean architecture design"/>
 
-## Uses Dependency Injection (DI)
+### Uses Dependency Injection (DI)
 
 - Adopts DI concept with Dependency Injectors and FastAPI.
 - Prepares all necessary components in containers prior to the application's startup, like
@@ -84,7 +84,7 @@ including: `Core` & `External`, as below.
 
 - Benefits of using AWS ECS:
     - It is convenient and easy to use Fargate instances for our app because AWS helps me provision the instances.
-    - Auto-scaling can be simply done by specifying hoe many containers I want under whatever circumstances.
+    - Auto-scaling can be simply done by specifying how many containers I want under whatever circumstances.
 
 ## Steps
 
@@ -132,8 +132,10 @@ including: `Core` & `External`, as below.
 
 ## Future Work
 
+- Try making it more "Pythonic"
+- Try shortening the presigned urls
+- Accumulate the statistics like click times
 - Write a start script
-- Normalize the response format
 
 ## References
 
